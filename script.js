@@ -376,7 +376,7 @@ function initContactForm() {
     const btn = form.querySelector('button[type="submit"]');
     btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> sending...';
     try {
-      const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      const res = await fetch('https://formspree.io/f/mbdekzow', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({ nome: name, email, azienda: form.company.value.trim(), servizio: form.service.value, messaggio: msg })
@@ -385,7 +385,7 @@ function initContactForm() {
         res.ok ? '// OK · Messaggio inviato. Ti rispondo entro 24 ore.'
                : '// ERROR · Invio fallito. Riprova più tardi.');
       if (res.ok) form.reset();
-    } catch { showFeedback('success','// OK · Messaggio ricevuto.'); form.reset(); } // fallback ottimistico — rete non raggiungibile
+    } catch { showFeedback('error','// ERROR · Invio fallito. Controlla la connessione e riprova.'); }
     btn.disabled = false; btn.innerHTML = '› send.message()';
   });
 }
